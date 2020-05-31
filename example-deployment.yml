@@ -1,0 +1,57 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  namespace: ecr-kube-helper
+  name: cron-ecr-kube-helper
+  labels:
+    app: cron-ecr-kube-helper
+spec:
+  schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          serviceAccountName: svac-ecr-kube-helper
+          volumes:
+            - name: svac-ecr-kube-helper-token-dr9bg
+              secret:
+                secretName: svac-ecr-kube-helper-token-dr9bg
+          containers:
+            - name: pod-ecr-kube-helper
+              image: anaganisk/ecr-kube-helper:alpha-4
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+                  name: svac-ecr-kube-helper-token-dr9bg
+              env:
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    secretKeyRef:
+                      # AWS credientials secret
+                      name: ecr-kube-helper-ecr-secret
+                      key: REGION
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      # AWS credientials secret
+                      name: ecr-kube-helper-ecr-secret
+                      key: ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      # AWS credientials secret
+                      name: ecr-kube-helper-ecr-secret
+                      key: SECRET
+                - name: LOGLEVEL
+                  value: INFO
+                - name: TARGET_SECRET
+                  value: xxxSecretxxx
+                - name: TARGET_ECR
+                  value: "xxxECR_REPOxxx"
+                - name: TARGET_NAMESPACE
+                  value: "ecr-kube-helper"
+                - name: TARGET_EMAIL
+                  value: "docker@example.com"
