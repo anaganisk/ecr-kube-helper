@@ -30,4 +30,4 @@ The cronjob will automatically create an image pull secret as defined in the env
 |AWS_DEFAULT_REGION|None (define as secret) refer example-deployment.ymlone|
 
 ### LICENSE
-**GPL V2**
+**[WTFPL](http://www.wtfpl.net/)**
