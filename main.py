@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import boto3
+import botocore
 import base64
 import json
 
@@ -21,7 +22,12 @@ configuration = config.load_incluster_config()
 v1 = client.CoreV1Api()
 
 def get_ecr_credentials(registryids):
-    client = boto3.client('ecr')
+    config = botocore.config.Config(
+        retries = dict(
+            mode = 'standard'
+        )
+    )
+    client = boto3.client('ecr', config=config)
     response = client.get_authorization_token(
         registryIds= registryids
     )
