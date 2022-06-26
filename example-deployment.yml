@@ -21,7 +21,7 @@ spec:
                 secretName: svac-ecr-kube-helper-token-dr9bg
           containers:
             - name: pod-ecr-kube-helper
-              image: ghcr.io/anaganisk/ecr-kube-helper:latest
+              image: ghcr.io/anaganisk/ecr-kube-helper:master
               imagePullPolicy: IfNotPresent
               volumeMounts:
                 - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
