@@ -1,7 +1,7 @@
 # ECR-KUBE-HELPER
 [![Create and publish a Docker image](https://github.com/anaganisk/ecr-kube-helper/actions/workflows/docker-image.yml/badge.svg)](https://github.com/anaganisk/ecr-kube-helper/actions/workflows/docker-image.yml)
 
-** The latest docker image is available in ghcr, please check the package ***
+** The latest docker image is available in ghcr, please check the package **
 
 ECR has an expiring registry authentication token(12 hours), integrating with your DIY kubernetes cluster is not easy. you have to refresh the secret every 12 hours.
 
