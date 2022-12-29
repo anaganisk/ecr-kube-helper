@@ -24,6 +24,7 @@ The cronjob will automatically create an image pull secret as defined in the env
 |TARGET_NAMESPACE|None (the namespace you want the cronjob in)|
 |TARGET_EMAIL|docker@example.com (can be anything, not really relevant)|
 |TARGET_ECR|None (TARGET_ECR.dkr.ecr.ap-south-1.amazonaws.com/repository)|
+|TARGET_ANNOTATIONS|None (JSON encoded Kubernetes annotations map)|
 |LOGLEVEL|DEBUG (Python log levels)|
 |AWS_SECRET_ACCESS_KEY|None (define as secret) refer example-deployment.yml|
 |AWS_ACCESS_KEY_ID|None (define as secret) refer example-deployment.yml|
