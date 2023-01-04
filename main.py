@@ -15,6 +15,7 @@ TARGET_SECRET = os.environ.get('TARGET_SECRET')
 TARGET_ECR = os.environ.get('TARGET_ECR')
 TARGET_NAMESPACE = os.environ.get('TARGET_NAMESPACE')
 TARGET_EMAIL = os.environ.get('TARGET_EMAIL', "docker@example.com")
+TARGET_ANNOTATIONS = os.environ.get('TARGET_ANNOTATIONS', "{}")
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=LOGLEVEL)
 
@@ -52,7 +53,11 @@ def get_ecr_credentials(registryids):
 
 def create_secret(json_data):
     namespace = TARGET_NAMESPACE
-    metadata = {'name': TARGET_SECRET, 'namespace': TARGET_NAMESPACE}
+    metadata = {
+        "name": TARGET_SECRET,
+        "namespace": TARGET_NAMESPACE,
+        "annotations": json.loads(TARGET_ANNOTATIONS)
+    }
     data = {
         ".dockerconfigjson": base64.b64encode(json_data.encode()).decode('ascii')
     }
